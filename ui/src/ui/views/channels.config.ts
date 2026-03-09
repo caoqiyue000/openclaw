@@ -1,4 +1,5 @@
 import { html } from "lit";
+import { t } from "../../i18n/index.ts";
 import type { ConfigUiHints } from "../types.ts";
 import { formatChannelExtraValue, resolveChannelConfigValue } from "./channel-config-extras.ts";
 import type { ChannelsProps } from "./channels.types.ts";
@@ -87,7 +88,7 @@ export function renderChannelConfigForm(props: ChannelConfigFormProps) {
   const normalized = analysis.schema;
   if (!normalized) {
     return html`
-      <div class="callout danger">Schema unavailable. Use Raw.</div>
+      <div class="callout danger">${t("channelsConfig.schemaUnavailable")}</div>
     `;
   }
   const node = resolveSchemaNode(normalized, ["channels", props.channelId]);
@@ -140,14 +141,14 @@ export function renderChannelConfigSection(params: { channelId: string; props: C
           ?disabled=${disabled || !props.configFormDirty}
           @click=${() => props.onConfigSave()}
         >
-          ${props.configSaving ? "Saving…" : "Save"}
+          ${props.configSaving ? t("channelsConfig.saving") : t("channelsConfig.save")}
         </button>
         <button
           class="btn"
           ?disabled=${disabled}
           @click=${() => props.onConfigReload()}
         >
-          Reload
+          ${t("channelsConfig.reload")}
         </button>
       </div>
     </div>

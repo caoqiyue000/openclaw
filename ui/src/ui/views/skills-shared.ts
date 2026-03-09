@@ -1,4 +1,5 @@
 import { html, nothing } from "lit";
+import { t } from "../../i18n/index.ts";
 import type { SkillStatusEntry } from "../types.ts";
 
 export function computeSkillMissing(skill: SkillStatusEntry): string[] {
@@ -13,10 +14,10 @@ export function computeSkillMissing(skill: SkillStatusEntry): string[] {
 export function computeSkillReasons(skill: SkillStatusEntry): string[] {
   const reasons: string[] = [];
   if (skill.disabled) {
-    reasons.push("disabled");
+    reasons.push(t("skillsShared.disabled"));
   }
   if (skill.blockedByAllowlist) {
-    reasons.push("blocked by allowlist");
+    reasons.push(t("skillsShared.blockedByAllowlist"));
   }
   return reasons;
 }
@@ -33,17 +34,17 @@ export function renderSkillStatusChips(params: {
       ${
         showBundledBadge
           ? html`
-              <span class="chip">bundled</span>
+              <span class="chip">${t("skillsShared.bundled")}</span>
             `
           : nothing
       }
       <span class="chip ${skill.eligible ? "chip-ok" : "chip-warn"}">
-        ${skill.eligible ? "eligible" : "blocked"}
+        ${skill.eligible ? t("skillsShared.eligible") : t("skillsShared.blocked")}
       </span>
       ${
         skill.disabled
           ? html`
-              <span class="chip chip-warn">disabled</span>
+              <span class="chip chip-warn">${t("skillsShared.disabled")}</span>
             `
           : nothing
       }
